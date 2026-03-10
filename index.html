@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hector Mur Lopez</title>
+  <meta name="description" content="Hector Mur López — writer and builder obsessed with how ordinary people create extraordinary lives."/>
+  <title>Hector Mur López</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
   <style>
     @font-face {
       font-family: 'Coolvetica';
@@ -16,11 +18,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f5f5f3;
-      --ink: #0d0d0d;
-      --mid: #555;
-      --light: #aaa;
-      --line: #e0e0dc;
+      --bg:     #f4efe4;   /* warm cream */
+      --ink:    #0d1b2a;   /* deep navy */
+      --accent: #f9c027;   /* Miró yellow */
+      --blue:   #4a8fc4;   /* Miró blue */
+      --mid:    #4e5a6a;   /* blue-toned mid */
+      --light:  #9aa5b4;   /* muted blue-gray */
+      --line:   #ddd5c6;   /* warm divider */
     }
 
     html { scroll-behavior: smooth; }
@@ -45,7 +49,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.4rem 2.5rem;
-      background: rgba(245, 245, 243, 0.92);
+      background: rgba(244, 239, 228, 0.92);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
@@ -76,7 +80,7 @@
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover { color: var(--blue); }
 
     /* HERO */
     .hero {
@@ -90,6 +94,9 @@
     }
 
     .hero-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
       font-size: 0.62rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -97,6 +104,16 @@
       margin-bottom: 2rem;
       opacity: 0;
       animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
     .hero h1 {
@@ -142,7 +159,7 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       white-space: nowrap;
-      transition: background 0.25s, color 0.25s;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
       flex-shrink: 0;
     }
 
@@ -153,20 +170,68 @@
     /* RULE */
     .rule { width: 100%; height: 1px; background: var(--line); }
 
-    /* PILLARS */
-    .pillars-section {
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 4rem;
+      display: block;
+    }
+
+    /* ABOUT */
+    .about-section {
       max-width: 1100px;
       margin: 0 auto;
       padding: 6rem 2.5rem;
     }
 
-    .section-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--light);
-      margin-bottom: 4rem;
-      display: block;
+    .about-section h2 {
+      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: normal;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .about-section h2.visible { opacity: 1; transform: translateY(0); }
+
+    .about-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-bio p {
+      font-size: 0.82rem;
+      line-height: 1.95;
+      color: var(--mid);
+      margin-bottom: 1.4rem;
+    }
+
+    .about-bio p:last-child { margin-bottom: 0; }
+
+    .about-highlight {
+      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
+      font-size: 1.75rem;
+      font-weight: normal;
+      line-height: 1.2;
+      color: var(--ink);
+      border-left: 3px solid var(--accent);
+      padding-left: 1.6rem;
+    }
+
+    /* PILLARS */
+    .pillars-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2.5rem;
     }
 
     .pillars {
@@ -191,7 +256,7 @@
     .pillar-index {
       font-size: 0.58rem;
       letter-spacing: 0.2em;
-      color: var(--light);
+      color: var(--accent);
       margin-bottom: 2rem;
       text-transform: uppercase;
     }
@@ -208,14 +273,6 @@
       font-size: 0.76rem;
       line-height: 1.85;
       color: var(--mid);
-    }
-
-    @media (max-width: 640px) {
-      .pillars { grid-template-columns: 1fr; }
-      .pillar { border-right: none; border-bottom: 1px solid var(--line); padding: 2rem 0 !important; }
-      .pillar:last-child { border-bottom: none; }
-      nav { padding: 1.2rem 1.5rem; }
-      .nav-links { gap: 1.2rem; }
     }
 
     /* STATEMENT */
@@ -283,6 +340,60 @@
 
     .btn-substack:hover { opacity: 0.7; }
 
+    /* CONTACT */
+    .contact-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2.5rem;
+    }
+
+    .contact-section h2 {
+      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: normal;
+      line-height: 1;
+      margin-bottom: 3rem;
+    }
+
+    .contact-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-link {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      padding: 2rem 2rem 2rem 0;
+      border-right: 1px solid var(--line);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .contact-link:last-child { border-right: none; padding-right: 0; }
+    .contact-link:not(:first-child) { padding-left: 2rem; }
+
+    .contact-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--light);
+      transition: color 0.2s;
+    }
+
+    .contact-handle {
+      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
+      font-size: 1.65rem;
+      font-weight: normal;
+      line-height: 1;
+      color: var(--ink);
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover .contact-label { color: var(--blue); }
+    .contact-link:hover .contact-handle { color: var(--blue); }
+
     /* FOOTER */
     footer {
       border-top: 1px solid var(--line);
@@ -305,6 +416,26 @@
 
     footer a:hover { color: var(--ink); }
 
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+
+      .pillars { grid-template-columns: 1fr; }
+      .pillar { border-right: none; border-bottom: 1px solid var(--line); padding: 2rem 0 !important; }
+      .pillar:last-child { border-bottom: none; }
+
+      .about-body { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .contact-links { grid-template-columns: 1fr; }
+      .contact-link {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding: 1.5rem 0 !important;
+      }
+      .contact-link:last-child { border-bottom: none; }
+    }
+
     /* ANIMATIONS */
     @keyframes fadeIn { to { opacity: 1; } }
 
@@ -317,11 +448,11 @@
 <body>
 
   <nav>
-    <a class="nav-name" href="#">Hector Mur Lopez</a>
+    <a class="nav-name" href="#">Hector Mur López</a>
     <ul class="nav-links">
-      <li><a href="#pillars">Philosophy</a></li>
+      <li><a href="#about">About Me</a></li>
       <li><a href="#writing">Writing</a></li>
-      <li><a href="mailto:your@email.com">Contact</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
@@ -331,12 +462,31 @@
     <h1>Revolutionizing<br>the world <span>through</span><br>self-discovery.</h1>
     <div class="hero-body">
       <p class="hero-desc">Building systems for growth across the only three assets that can withstand all uncertainty.</p>
-      <a href="#pillars" class="hero-cta">
+      <a href="#about" class="hero-cta">
         Explore
         <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
           <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ABOUT ME -->
+  <div class="about-section" id="about">
+    <span class="section-label">Who am I?</span>
+    <h2>About Me</h2>
+    <div class="about-body">
+      <div class="about-bio">
+        <p>I'm Hector — a writer and builder obsessed with one question: how do ordinary people create extraordinary lives?</p>
+        <p>I spent years searching for shortcuts, only to find there are none. What there is, instead, is a method: build the right skills, acquire the right knowledge, and protect your health. Do that consistently, and compounding does the rest.</p>
+        <p>Today I write, build, and share frameworks for deliberate growth. My goal is to close the gap between where you are and where you're capable of being — one honest idea at a time.</p>
+        <p>I publish a weekly newsletter on Substack where I share the frameworks, ideas, and reflections that have shaped how I think and live. No noise, no hacks — just the work.</p>
+      </div>
+      <div>
+        <p class="about-highlight">"Create a positive spiral that changes the direction of your life."</p>
+      </div>
     </div>
   </div>
 
@@ -387,16 +537,38 @@
     </div>
   </div>
 
+  <div class="rule"></div>
+
+  <!-- CONTACT -->
+  <div class="contact-section" id="contact">
+    <span class="section-label">Get in touch</span>
+    <h2>Contact</h2>
+    <div class="contact-links">
+      <a href="mailto:hello@hectormurlopez.com" class="contact-link">
+        <span class="contact-label">Email</span>
+        <span class="contact-handle">hello@</span>
+      </a>
+      <a href="https://www.linkedin.com/in/hector-mur-lopez/" class="contact-link" target="_blank" rel="noopener">
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-handle">Hector Mur López</span>
+      </a>
+      <a href="https://substack.com/@hectormurlopez" class="contact-link" target="_blank" rel="noopener">
+        <span class="contact-label">Substack</span>
+        <span class="contact-handle">@hectormurlopez</span>
+      </a>
+    </div>
+  </div>
+
   <footer>
-    <span>&copy; 2026 Hector Mur Lopez</span>
-    <a href="mailto:your@email.com">your@email.com</a>
+    <span>&copy; 2026 Hector Mur López</span>
+    <a href="mailto:hello@hectormurlopez.com">hello@hectormurlopez.com</a>
   </footer>
 
   <script>
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.15 });
-    document.querySelectorAll('.pillar, .statement p').forEach(el => observer.observe(el));
+    document.querySelectorAll('.pillar, .statement p, .about-section h2').forEach(el => observer.observe(el));
   </script>
 
 </body>
