@@ -21,7 +21,7 @@
   <text x="120" y="228" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="17" fill="#4a8fc4" letter-spacing="7">PERSONAL SITE</text>
 
   <!-- Name -->
-  <text x="116" y="360" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="108" fill="#0d1b2a" letter-spacing="-3">Hector Mur López</text>
+  <text x="116" y="360" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="108" fill="#0d1b2a" letter-spacing="-3">Hector Mur Lopez</text>
 
   <!-- Yellow accent bar -->
   <rect x="120" y="378" width="72" height="5" fill="#f9c027"/>
