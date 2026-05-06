@@ -6,6 +6,7 @@
   <meta name="description" content="Hector Mur Lopez, writer and builder obsessed with how ordinary people create extraordinary lives."/>
   <title>Hector Mur Lopez</title>
   <link rel="icon" type="image/svg+xml" href="icon.svg"/>
+  <link rel="preload" href="fonts/coolvetica.woff2" as="font" type="font/woff2" crossorigin/>
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website"/>
@@ -21,6 +22,7 @@
            url('fonts/coolvetica.woff') format('woff');
       font-weight: normal;
       font-style: normal;
+      font-display: swap;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,6 +38,27 @@
     }
 
     html { scroll-behavior: smooth; }
+
+    /* SKIP LINK */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      z-index: 200;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* FOCUS */
+    :focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
 
     body {
       background: var(--bg);
@@ -462,6 +485,8 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <nav>
     <a class="nav-name" href="#">Hector Mur Lopez</a>
     <ul class="nav-links">
@@ -471,6 +496,8 @@
     </ul>
   </nav>
 
+  <main id="main">
+
   <!-- HERO -->
   <div class="hero">
     <p class="hero-tag">Personal Site</p>
@@ -479,7 +506,7 @@
       <p class="hero-desc">Building systems for growth across the only three assets that can withstand all uncertainty.</p>
       <a href="#about" class="hero-cta">
         Explore
-        <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
           <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
@@ -548,9 +575,10 @@
         class="substack-embed"
         height="150"
         frameborder="0"
-        scrolling="no">
+        scrolling="no"
+        title="Subscribe to the newsletter">
       </iframe>
-      <a href="https://hectormurlopez.substack.com" class="substack-fallback" target="_blank" rel="noopener">
+      <a href="https://hectormurlopez.substack.com" class="substack-fallback" target="_blank" rel="noopener" aria-label="Read on Substack (opens in new tab)">
         Read on Substack &rarr;
       </a>
     </div>
@@ -573,6 +601,8 @@
       </a>
     </div>
   </div>
+
+  </main>
 
   <footer>
     <span>&copy; 2026 Hector Mur Lopez</span>
