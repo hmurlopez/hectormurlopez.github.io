@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Warm cream background -->
+  <rect width="1200" height="630" fill="#f4efe4"/>
+
+  <!-- Navy blob — top left -->
+  <path d="M0,0 Q210,0 230,150 Q170,230 0,260 Z" fill="#0d1b2a"/>
+
+  <!-- Yellow blob — top right -->
+  <path d="M980,0 Q1200,0 1200,230 Q1110,160 1010,90 Q970,55 980,0Z" fill="#f9c027"/>
+
+  <!-- Blue blob — bottom right -->
+  <path d="M1100,630 Q1200,580 1200,630 Z" fill="#4a8fc4"/>
+
+  <!-- Yellow blob — bottom left -->
+  <path d="M0,530 Q90,510 110,600 Q60,630 0,630 Z" fill="#f9c027"/>
+
+  <!-- Blue accent blob — bottom mid-right -->
+  <path d="M820,630 Q920,590 980,630 Z" fill="#4a8fc4"/>
+
+  <!-- Label -->
+  <text x="120" y="228" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="17" fill="#4a8fc4" letter-spacing="7">PERSONAL SITE</text>
+
+  <!-- Name -->
+  <text x="116" y="360" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="108" fill="#0d1b2a" letter-spacing="-3">Hector Mur López</text>
+
+  <!-- Yellow accent bar -->
+  <rect x="120" y="378" width="72" height="5" fill="#f9c027"/>
+
+  <!-- Tagline -->
+  <text x="120" y="440" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="27" fill="#4e5a6a" letter-spacing="0.5">Revolutionizing the world through self-discovery.</text>
+
+  <!-- Domain -->
+  <text x="120" y="508" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="19" fill="#9aa5b4" letter-spacing="6">HECTORMURLOPEZ.COM</text>
+</svg>
