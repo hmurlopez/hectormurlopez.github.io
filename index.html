@@ -3,22 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Hector Mur López, writer and builder obsessed with how ordinary people create extraordinary lives."/>
-  <title>Hector Mur López</title>
+  <meta name="description" content="Hector Mur Lopez, writer and builder obsessed with how ordinary people create extraordinary lives."/>
+  <title>Hector Mur Lopez</title>
   <link rel="icon" type="image/svg+xml" href="icon.svg"/>
+  <link rel="preload" href="fonts/coolvetica.woff2" as="font" type="font/woff2" crossorigin/>
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website"/>
   <meta property="og:url"         content="https://hectormurlopez.com"/>
-  <meta property="og:title"       content="Hector Mur López"/>
+  <meta property="og:title"       content="Hector Mur Lopez"/>
   <meta property="og:description" content="Writer and builder obsessed with how ordinary people create extraordinary lives."/>
   <meta property="og:image"       content="https://hectormurlopez.com/og-image.svg"/>
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card"        content="summary_large_image"/>
-  <meta name="twitter:title"       content="Hector Mur López"/>
-  <meta name="twitter:description" content="Writer and builder obsessed with how ordinary people create extraordinary lives."/>
-  <meta name="twitter:image"       content="https://hectormurlopez.com/og-image.svg"/>
 
   <style>
     @font-face {
@@ -27,6 +22,7 @@
            url('fonts/coolvetica.woff') format('woff');
       font-weight: normal;
       font-style: normal;
+      font-display: swap;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,6 +38,27 @@
     }
 
     html { scroll-behavior: smooth; }
+
+    /* SKIP LINK */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      z-index: 200;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* FOCUS */
+    :focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
 
     body {
       background: var(--bg);
@@ -468,14 +485,18 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <nav>
-    <a class="nav-name" href="#">Hector Mur López</a>
+    <a class="nav-name" href="#">Hector Mur Lopez</a>
     <ul class="nav-links">
       <li><a href="#about">About Me</a></li>
       <li><a href="#writing">Writing</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
+
+  <main id="main">
 
   <!-- HERO -->
   <div class="hero">
@@ -485,7 +506,7 @@
       <p class="hero-desc">Building systems for growth across the only three assets that can withstand all uncertainty.</p>
       <a href="#about" class="hero-cta">
         Explore
-        <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
           <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
@@ -554,9 +575,10 @@
         class="substack-embed"
         height="150"
         frameborder="0"
-        scrolling="no">
+        scrolling="no"
+        title="Subscribe to the newsletter">
       </iframe>
-      <a href="https://hectormurlopez.substack.com" class="substack-fallback" target="_blank" rel="noopener">
+      <a href="https://hectormurlopez.substack.com" class="substack-fallback" target="_blank" rel="noopener" aria-label="Read on Substack (opens in new tab)">
         Read on Substack &rarr;
       </a>
     </div>
@@ -571,7 +593,7 @@
     <div class="contact-links">
       <a href="https://www.linkedin.com/in/hector-mur-lopez/" class="contact-link" target="_blank" rel="noopener">
         <span class="contact-label">LinkedIn</span>
-        <span class="contact-handle">Hector Mur López</span>
+        <span class="contact-handle">Hector Mur Lopez</span>
       </a>
       <a href="https://substack.com/@hectormurlopez" class="contact-link" target="_blank" rel="noopener">
         <span class="contact-label">Substack</span>
@@ -580,8 +602,10 @@
     </div>
   </div>
 
+  </main>
+
   <footer>
-    <span>&copy; 2026 Hector Mur López</span>
+    <span>&copy; 2026 Hector Mur Lopez</span>
     <a href="https://www.linkedin.com/in/hector-mur-lopez/" target="_blank" rel="noopener">LinkedIn</a>
   </footer>
 
@@ -591,6 +615,9 @@
     }, { threshold: 0.15 });
     document.querySelectorAll('.pillar, .statement p, .about-section h2').forEach(el => observer.observe(el));
   </script>
+
+  <!-- GoatCounter analytics — replace YOUR_CODE with your goatcounter.com site code -->
+  <script data-goatcounter="https://hmurlopez.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 </body>
 </html>
