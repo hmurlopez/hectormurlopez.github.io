@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page Not Found — Hector Mur Lopez</title>
+  <link rel="icon" type="image/svg+xml" href="icon.svg"/>
+  <style>
+    @font-face {
+      font-family: 'Coolvetica';
+      src: url('fonts/coolvetica.woff2') format('woff2'),
+           url('fonts/coolvetica.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #f4efe4;
+      --ink:    #0d1b2a;
+      --accent: #f9c027;
+      --blue:   #4a8fc4;
+      --mid:    #4e5a6a;
+      --light:  #9aa5b4;
+      --line:   #ddd5c6;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 2.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-name {
+      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .label {
+      font-size: 0.6rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    h1 {
+      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
+      font-size: clamp(5rem, 18vw, 14rem);
+      font-weight: normal;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+
+    h1 span { color: var(--light); }
+
+    p {
+      font-size: 0.82rem;
+      color: var(--mid);
+      line-height: 1.9;
+      max-width: 38ch;
+      margin-bottom: 2.5rem;
+    }
+
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1.8rem;
+      border: 1px solid var(--ink);
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .home-link:hover { background: var(--ink); color: var(--bg); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 2.5rem;
+    }
+
+    footer span {
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-name" href="/">Hector Mur Lopez</a>
+  </nav>
+
+  <main>
+    <span class="label">Error 404</span>
+    <h1>Page <span>not</span><br>found.</h1>
+    <p>The page you're looking for doesn't exist or has been moved. Head back home.</p>
+    <a href="/" class="home-link">
+      Back home
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+        <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </main>
+
+  <footer>
+    <span>&copy; 2026 Hector Mur Lopez</span>
+  </footer>
+
+</body>
+</html>
