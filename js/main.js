@@ -400,6 +400,97 @@ function setupContact(P) {
 }
 
 /* ------------------------------------------------------------------ */
+/* Latest essays — rendered from posts.json (synced by GitHub Action)  */
+/* ------------------------------------------------------------------ */
+
+// Only links back to the newsletter are ever rendered — keeps the
+// pipeline poison-proof even if the feed data were ever tampered with.
+const SUBSTACK_ORIGIN = 'https://hectormurlopez.substack.com';
+
+function essayArrow() {
+  const ns = 'http://www.w3.org/2000/svg';
+  const arrow = document.createElementNS(ns, 'svg');
+  arrow.setAttribute('class', 'essay-arrow');
+  arrow.setAttribute('width', '14');
+  arrow.setAttribute('height', '10');
+  arrow.setAttribute('viewBox', '0 0 14 10');
+  arrow.setAttribute('fill', 'none');
+  arrow.setAttribute('aria-hidden', 'true');
+  arrow.setAttribute('focusable', 'false');
+  const path = document.createElementNS(ns, 'path');
+  path.setAttribute('d', 'M1 5h12M8 1l5 4-5 4');
+  path.setAttribute('stroke', 'currentColor');
+  path.setAttribute('stroke-width', '1.2');
+  path.setAttribute('stroke-linecap', 'round');
+  path.setAttribute('stroke-linejoin', 'round');
+  arrow.appendChild(path);
+  return arrow;
+}
+
+function buildEssayItem(post) {
+  // Strictly createElement + textContent — feed data is never parsed as HTML.
+  const li = document.createElement('li');
+  const link = document.createElement('a');
+  link.className = 'essay-card';
+  link.href = post.url;
+  link.target = '_blank';
+  link.rel = 'noopener';
+
+  const time = document.createElement('time');
+  time.dateTime = post.date;
+  const parsed = new Date(`${post.date}T00:00:00`);
+  time.textContent = Number.isNaN(parsed.getTime())
+    ? post.date
+    : new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' }).format(parsed);
+
+  const body = document.createElement('div');
+  const title = document.createElement('h3');
+  title.textContent = post.title;
+  body.appendChild(title);
+  if (post.excerpt) {
+    const excerpt = document.createElement('p');
+    excerpt.textContent = post.excerpt;
+    body.appendChild(excerpt);
+  }
+
+  link.append(time, body, essayArrow());
+  li.appendChild(link);
+  return li;
+}
+
+function validPost(post) {
+  if (!post || typeof post.title !== 'string' || !post.title.trim()) return false;
+  if (typeof post.url !== 'string' || typeof post.date !== 'string') return false;
+  try {
+    return new URL(post.url).origin === SUBSTACK_ORIGIN;
+  } catch {
+    return false;
+  }
+}
+
+async function renderPosts() {
+  const list = document.querySelector('.essays');
+  if (!list) return;
+  try {
+    const res = await fetch('/posts.json', { cache: 'no-cache' });
+    if (!res.ok) return;
+    const data = await res.json();
+    const posts = (Array.isArray(data?.posts) ? data.posts : []).filter(validPost).slice(0, 5);
+    if (!posts.length) return; // section degrades to subscribe box + link
+
+    const items = posts.map(buildEssayItem);
+    list.append(...items);
+    list.hidden = false;
+
+    if (motionParams) {
+      revealEssays(items.map((li) => li.firstElementChild), motionParams);
+    }
+  } catch {
+    // fetch/parse failed — the essays list simply stays hidden
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /* Boot                                                                */
 /* ------------------------------------------------------------------ */
 
@@ -426,3 +517,5 @@ createScope({
   setupContact(P);
   if (MODE === 'bold') setupNavProgress();
 });
+
+renderPosts();
