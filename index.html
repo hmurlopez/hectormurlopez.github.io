@@ -1,496 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-motion="bold">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Hector Mur Lopez, writer and builder obsessed with how ordinary people create extraordinary lives."/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://gc.zgo.at; connect-src 'self' https://hmurlopez.goatcounter.com; img-src 'self' data: https://hmurlopez.goatcounter.com; frame-src https://hectormurlopez.substack.com; style-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'"/>
+  <meta name="description" content="Hector Mur Lopez — writer and builder. Essays and frameworks on skills, knowledge, and health: how ordinary people create extraordinary lives."/>
   <title>Hector Mur Lopez</title>
-  <link rel="icon" type="image/svg+xml" href="icon.svg"/>
-  <link rel="preload" href="fonts/coolvetica.woff2" as="font" type="font/woff2" crossorigin/>
+  <link rel="icon" type="image/svg+xml" href="/icon.svg"/>
+  <link rel="preload" href="/fonts/coolvetica.woff2" as="font" type="font/woff2" crossorigin/>
+  <link rel="stylesheet" href="/styles.css"/>
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website"/>
   <meta property="og:url"         content="https://hectormurlopez.com"/>
   <meta property="og:title"       content="Hector Mur Lopez"/>
-  <meta property="og:description" content="Writer and builder obsessed with how ordinary people create extraordinary lives."/>
+  <meta property="og:description" content="Writer and builder. Essays and frameworks on skills, knowledge, and health — how ordinary people create extraordinary lives."/>
   <meta property="og:image"       content="https://hectormurlopez.com/og-image.svg"/>
-
-  <style>
-    @font-face {
-      font-family: 'Coolvetica';
-      src: url('fonts/coolvetica.woff2') format('woff2'),
-           url('fonts/coolvetica.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:     #f4efe4;   /* warm cream */
-      --ink:    #0d1b2a;   /* deep navy */
-      --accent: #f9c027;   /* Miró yellow */
-      --blue:   #4a8fc4;   /* Miró blue */
-      --mid:    #4e5a6a;   /* blue-toned mid */
-      --light:  #9aa5b4;   /* muted blue-gray */
-      --line:   #ddd5c6;   /* warm divider */
-    }
-
-    html { scroll-behavior: smooth; }
-
-    /* SKIP LINK */
-    .skip-link {
-      position: absolute;
-      top: -100%;
-      left: 1rem;
-      padding: 0.6rem 1.2rem;
-      background: var(--ink);
-      color: var(--bg);
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-decoration: none;
-      z-index: 200;
-    }
-    .skip-link:focus { top: 1rem; }
-
-    /* FOCUS */
-    :focus-visible {
-      outline: 2px solid var(--blue);
-      outline-offset: 3px;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.4rem 2.5rem;
-      background: rgba(244, 239, 228, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--line);
-      opacity: 0;
-      animation: fadeIn 0.6s ease 0.1s forwards;
-    }
-
-    .nav-name {
-      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
-      font-size: 1rem;
-      letter-spacing: 0.06em;
-      text-decoration: none;
-      color: var(--ink);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--light);
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--blue); }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 10rem 2.5rem 4rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .hero-tag {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--light);
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.4s forwards;
-    }
-
-    .hero-tag::before {
-      content: '';
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      background: var(--accent);
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .hero h1 {
-      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
-      font-size: clamp(3.5rem, 10vw, 8rem);
-      font-weight: normal;
-      line-height: 0.95;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.55s forwards;
-    }
-
-    .hero h1 span { color: var(--light); }
-
-    .hero-body {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 2rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.7s forwards;
-    }
-
-    .hero-desc {
-      font-size: 0.8rem;
-      color: var(--mid);
-      line-height: 1.9;
-      max-width: 38ch;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 0.8rem 1.8rem;
-      border: 1px solid var(--ink);
-      text-decoration: none;
-      color: var(--ink);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      transition: background 0.25s, color 0.25s, border-color 0.25s;
-      flex-shrink: 0;
-    }
-
-    .hero-cta:hover { background: var(--ink); color: var(--bg); }
-    .hero-cta svg { transition: transform 0.25s; }
-    .hero-cta:hover svg { transform: translateX(4px); }
-
-    /* RULE */
-    .rule { width: 100%; height: 1px; background: var(--line); }
-
-    /* SECTION LABEL */
-    .section-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 4rem;
-      display: block;
-    }
-
-    /* ABOUT */
-    .about-section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 6rem 2.5rem;
-    }
-
-    .about-section h2 {
-      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
-      font-size: clamp(3rem, 7vw, 6rem);
-      font-weight: normal;
-      line-height: 0.95;
-      letter-spacing: -0.01em;
-      margin-bottom: 3.5rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .about-section h2.visible { opacity: 1; transform: translateY(0); }
-
-    .about-body {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-
-    .about-bio p {
-      font-size: 0.82rem;
-      line-height: 1.95;
-      color: var(--mid);
-      margin-bottom: 1.4rem;
-    }
-
-    .about-bio p:last-child { margin-bottom: 0; }
-
-    .about-highlight {
-      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
-      font-size: 1.75rem;
-      font-weight: normal;
-      line-height: 1.2;
-      color: var(--ink);
-      border-left: 3px solid var(--accent);
-      padding-left: 1.6rem;
-    }
-
-    /* PILLARS */
-    .pillars-section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 6rem 2.5rem;
-    }
-
-    .pillars {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .pillar {
-      padding: 2.5rem 2rem 2.5rem 0;
-      border-right: 1px solid var(--line);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .pillar:last-child { border-right: none; padding-right: 0; }
-    .pillar:not(:first-child) { padding-left: 2rem; }
-    .pillar.visible { opacity: 1; transform: translateY(0); }
-    .pillar:nth-child(2) { transition-delay: 0.1s; }
-    .pillar:nth-child(3) { transition-delay: 0.2s; }
-
-    .pillar-index {
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      color: var(--accent);
-      margin-bottom: 2rem;
-      text-transform: uppercase;
-    }
-
-    .pillar h3 {
-      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
-      font-size: 2.2rem;
-      font-weight: normal;
-      letter-spacing: 0.01em;
-      margin-bottom: 1rem;
-    }
-
-    .pillar p {
-      font-size: 0.76rem;
-      line-height: 1.85;
-      color: var(--mid);
-    }
-
-    /* STATEMENT */
-    .statement {
-      background: var(--ink);
-      color: var(--bg);
-      padding: 8rem 2.5rem;
-      text-align: center;
-    }
-
-    .statement p {
-      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
-      font-size: clamp(2.4rem, 6vw, 5rem);
-      font-weight: normal;
-      line-height: 1.05;
-      max-width: 800px;
-      margin: 0 auto;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .statement p.visible { opacity: 1; transform: translateY(0); }
-
-    /* SUBSTACK */
-    .substack-section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 7rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-
-    .substack-left h2 {
-      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      font-weight: normal;
-      line-height: 1;
-      margin-bottom: 1.2rem;
-    }
-
-    .substack-left p {
-      font-size: 0.76rem;
-      color: var(--mid);
-      line-height: 1.9;
-      max-width: 38ch;
-    }
-
-    .substack-embed {
-      border: none;
-      background: transparent;
-      width: 480px;
-      max-width: 100%;
-      display: block;
-    }
-
-    .substack-fallback {
-      display: block;
-      margin-top: 1rem;
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--light);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .substack-fallback:hover { color: var(--ink); }
-
-    /* CONTACT */
-    .contact-section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 6rem 2.5rem;
-    }
-
-    .contact-section h2 {
-      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      font-weight: normal;
-      line-height: 1;
-      margin-bottom: 3rem;
-    }
-
-    .contact-links {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      border-top: 1px solid var(--line);
-    }
-
-    .contact-link {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      padding: 2rem 2rem 2rem 0;
-      border-right: 1px solid var(--line);
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .contact-link:last-child { border-right: none; padding-right: 0; }
-    .contact-link:not(:first-child) { padding-left: 2rem; }
-
-    .contact-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--light);
-      transition: color 0.2s;
-    }
-
-    .contact-handle {
-      font-family: 'Coolvetica', 'Helvetica Neue', sans-serif;
-      font-size: 1.65rem;
-      font-weight: normal;
-      line-height: 1;
-      color: var(--ink);
-      transition: color 0.2s;
-    }
-
-    .contact-link:hover .contact-label { color: var(--blue); }
-    .contact-link:hover .contact-handle { color: var(--blue); }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 2rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    footer span, footer a {
-      font-size: 0.6rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--light);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    footer a:hover { color: var(--ink); }
-
-    /* RESPONSIVE */
-    @media (max-width: 640px) {
-      nav { padding: 1.2rem 1.5rem; }
-      .nav-links { gap: 1.2rem; }
-
-      .pillars { grid-template-columns: 1fr; }
-      .pillar { border-right: none; border-bottom: 1px solid var(--line); padding: 2rem 0 !important; }
-      .pillar:last-child { border-bottom: none; }
-
-      .about-body { grid-template-columns: 1fr; gap: 2.5rem; }
-
-      .substack-section { padding: 5rem 1.5rem; }
-
-      .contact-links { grid-template-columns: 1fr; }
-      .contact-link {
-        border-right: none;
-        border-bottom: 1px solid var(--line);
-        padding: 1.5rem 0 !important;
-      }
-      .contact-link:last-child { border-bottom: none; }
-    }
-
-    /* ANIMATIONS */
-    @keyframes fadeIn { to { opacity: 1; } }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-  </style>
 </head>
 <body>
 
   <a class="skip-link" href="#main">Skip to content</a>
 
   <nav>
-    <a class="nav-name" href="#">Hector Mur Lopez</a>
+    <div class="nav-left">
+      <svg class="nav-progress" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <circle cx="16" cy="16" r="13" fill="none" stroke="#ddd5c6" stroke-width="3.5"/>
+        <circle class="nav-progress-fill" cx="16" cy="16" r="13" fill="none" stroke="#f9c027" stroke-width="3.5" stroke-linecap="round" transform="rotate(-90 16 16)"/>
+      </svg>
+      <a class="nav-name" href="#">Hector Mur Lopez</a>
+    </div>
     <ul class="nav-links">
-      <li><a href="#about">About Me</a></li>
+      <li><a href="#about">About</a></li>
+      <li class="nav-optional"><a href="#principles">Principles</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#writing">Writing</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -499,26 +41,51 @@
   <main id="main">
 
   <!-- HERO -->
-  <div class="hero">
-    <p class="hero-tag">Personal Site</p>
-    <h1>Revolutionizing<br>the world <span>through</span><br>self-discovery.</h1>
-    <div class="hero-body">
-      <p class="hero-desc">Building systems for growth across the only three assets that can withstand all uncertainty.</p>
-      <a href="#about" class="hero-cta">
-        Explore
-        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
-          <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+  <header class="hero">
+    <div class="hero-art" aria-hidden="true">
+      <svg class="shape shape-sun" viewBox="0 0 100 100" focusable="false">
+        <circle cx="50" cy="50" r="46" fill="#f9c027"/>
+      </svg>
+      <svg class="shape shape-orbit" viewBox="0 0 100 100" focusable="false">
+        <circle class="drawable" cx="50" cy="50" r="45" fill="none" stroke="#4a8fc4" stroke-width="2.5"/>
+      </svg>
+      <svg class="shape shape-star" viewBox="0 0 100 100" focusable="false">
+        <path d="M50 4 L59 41 L96 50 L59 59 L50 96 L41 59 L4 50 L41 41 Z" fill="#0d1b2a"/>
+      </svg>
+      <svg class="shape shape-crescent" viewBox="0 0 100 100" focusable="false">
+        <path d="M62 8 A44 44 0 1 0 62 92 A35 35 0 1 1 62 8 Z" fill="#d94f2b"/>
+      </svg>
+      <svg class="shape shape-blob" viewBox="0 0 110 100" focusable="false">
+        <path d="M22 62 C8 34 36 8 62 14 C94 21 104 52 86 74 C66 96 34 92 22 62 Z" fill="#4a8fc4"/>
+      </svg>
+      <svg class="shape shape-dot" viewBox="0 0 14 14" focusable="false">
+        <circle cx="7" cy="7" r="7" fill="#d94f2b"/>
+      </svg>
+      <svg class="shape shape-squiggle" viewBox="0 0 100 50" focusable="false">
+        <path class="drawable" d="M4 26 C18 4 32 46 48 26 C64 6 78 46 96 24" fill="none" stroke="#0d1b2a" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
     </div>
-  </div>
+    <div class="hero-content">
+      <p class="hero-tag">Personal Site</p>
+      <h1 id="hero-title">Revolutionizing<br>the world <span class="dim">through</span><br>self-discovery.</h1>
+      <div class="hero-body">
+        <p class="hero-desc">Building systems for growth across the only three assets that can withstand all uncertainty.</p>
+        <a href="#about" class="hero-cta">
+          Explore
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false">
+            <path class="drawable" d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
 
   <div class="rule"></div>
 
-  <!-- ABOUT ME -->
-  <div class="about-section" id="about">
+  <!-- ABOUT -->
+  <section class="section about-section" id="about" aria-labelledby="about-title">
     <span class="section-label">Who am I?</span>
-    <h2>About Me</h2>
+    <h2 class="section-title" id="about-title">About Me</h2>
     <div class="about-body">
       <div class="about-bio">
         <p>I'm Hector, a writer and builder obsessed with one question: how do ordinary people create extraordinary lives?</p>
@@ -526,70 +93,216 @@
         <p>Today I write, build, and share frameworks for deliberate growth. My goal is to close the gap between where you are and where you're capable of being, one honest idea at a time.</p>
         <p>I publish a weekly newsletter on Substack where I share the frameworks, ideas, and reflections that have shaped how I think and live. No noise, no hacks. Just the work.</p>
       </div>
-      <div>
+      <div class="about-aside">
         <p class="about-highlight">"Create a positive spiral that changes the direction of your life."</p>
+        <svg class="about-star" viewBox="0 0 44 44" aria-hidden="true" focusable="false">
+          <path class="drawable" d="M22 3 L26 18 L41 22 L26 26 L22 41 L18 26 L3 22 L18 18 Z" fill="none" stroke="#f9c027" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
       </div>
     </div>
-  </div>
+  </section>
 
   <div class="rule"></div>
 
   <!-- PILLARS -->
-  <div class="pillars-section" id="pillars">
+  <section class="section pillars-section" id="pillars" aria-label="The only three assets that matter">
     <span class="section-label">The Only 3 Assets that Matter</span>
-    <div class="pillars">
-      <div class="pillar">
+    <ul class="pillars">
+      <li class="pillar">
+        <svg class="pillar-glyph" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+          <circle class="drawable" cx="15" cy="19" r="11" fill="none" stroke="#0d1b2a" stroke-width="2"/>
+          <path class="drawable" d="M20 14 L31 3" fill="none" stroke="#f9c027" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
         <div class="pillar-index">01</div>
         <h3>Skills</h3>
         <p>Build an uncommon skillset through deliberate practice and lived experience.</p>
-      </div>
-      <div class="pillar">
+      </li>
+      <li class="pillar">
+        <svg class="pillar-glyph" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+          <path class="drawable" d="M3 17 C8 8 26 8 31 17 C26 26 8 26 3 17 Z" fill="none" stroke="#0d1b2a" stroke-width="2" stroke-linejoin="round"/>
+          <circle cx="17" cy="17" r="4" fill="#4a8fc4"/>
+        </svg>
         <div class="pillar-index">02</div>
         <h3>Knowledge</h3>
         <p>Pay the ignorance debt that is stopping you from making the right decisions.</p>
-      </div>
-      <div class="pillar">
+      </li>
+      <li class="pillar">
+        <svg class="pillar-glyph" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+          <path class="drawable" d="M4 29 A13 13 0 0 1 30 29" fill="none" stroke="#0d1b2a" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="17" cy="10" r="4" fill="#d94f2b"/>
+        </svg>
         <div class="pillar-index">03</div>
         <h3>Health</h3>
         <p>Your body is your temple. If you don't treat it with respect, entropy will consume it.</p>
-      </div>
-    </div>
-  </div>
+      </li>
+    </ul>
+  </section>
 
   <div class="rule"></div>
 
-  <!-- STATEMENT -->
-  <div class="statement">
-    <p>Create a positive spiral that changes the direction of your life.</p>
-  </div>
+  <!-- PRINCIPLES -->
+  <section class="section principles-section" id="principles" aria-label="Principles for life">
+    <span class="section-label">Principles for Life</span>
+    <!-- EDIT: principles — replace titles and one-liners with your own -->
+    <ol class="principles">
+      <li class="principle">
+        <span class="principle-index" aria-hidden="true">01</span>
+        <div>
+          <h3>Compounding beats shortcuts</h3>
+          <p>There are no hacks. Small, honest reps stacked daily outperform any silver bullet.</p>
+        </div>
+      </li>
+      <li class="principle">
+        <span class="principle-index" aria-hidden="true">02</span>
+        <div>
+          <h3>Pay the ignorance debt</h3>
+          <p>Most limits are unpaid knowledge. Study what you avoid until it stops taxing your decisions.</p>
+        </div>
+      </li>
+      <li class="principle">
+        <span class="principle-index" aria-hidden="true">03</span>
+        <div>
+          <h3>Protect the temple</h3>
+          <p>Energy is upstream of everything. Sleep, train, and eat like your future depends on it — because it does.</p>
+        </div>
+      </li>
+      <li class="principle">
+        <span class="principle-index" aria-hidden="true">04</span>
+        <div>
+          <h3>Direction over speed</h3>
+          <p>Moving fast in the wrong direction is still losing. Recalibrate before you accelerate.</p>
+        </div>
+      </li>
+      <li class="principle">
+        <span class="principle-index" aria-hidden="true">05</span>
+        <div>
+          <h3>Do the honest work</h3>
+          <p>No noise, no theater. The work that matters is usually quiet, repetitive, and unglamorous.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
 
-  <!-- SUBSTACK -->
-  <div class="substack-section" id="writing">
-    <div class="substack-left">
-      <h2>Read the<br>Newsletter</h2>
-      <p>Essays on growth, self-discovery, and building a life worth living. Published on Substack.</p>
+  <!-- STATEMENT -->
+  <section class="statement" aria-label="Statement">
+    <svg class="statement-shape statement-disc" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <circle cx="50" cy="50" r="48" fill="#4a8fc4" opacity="0.28"/>
+    </svg>
+    <svg class="statement-shape statement-arc" viewBox="0 0 100 60" aria-hidden="true" focusable="false">
+      <path d="M4 56 A46 46 0 0 1 96 56" fill="none" stroke="#f9c027" stroke-width="3" opacity="0.45" stroke-linecap="round"/>
+    </svg>
+    <p id="statement-text">Create a positive spiral that changes the direction of your life.</p>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="section portfolio-section" id="portfolio" aria-labelledby="portfolio-title">
+    <span class="section-label">Selected Work</span>
+    <h2 class="section-title" id="portfolio-title">Portfolio</h2>
+    <!-- EDIT: projects — swap these placeholder cards with real projects.
+         Each card needs: index, title, one-2 sentence description, 2-3 tags, and a link (href). -->
+    <ul class="projects">
+      <li class="project">
+        <a class="project-card" href="#portfolio">
+          <span class="project-index">01</span>
+          <h3>Positive Spiral OS</h3>
+          <p>A practical operating system for deliberate growth — goals, reviews, and habits in one honest loop.</p>
+          <ul class="project-tags" aria-label="Tags">
+            <li class="tag">Framework</li>
+            <li class="tag">Systems</li>
+          </ul>
+          <span class="project-link">
+            Coming soon
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false">
+              <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      </li>
+      <li class="project">
+        <a class="project-card" href="#portfolio">
+          <span class="project-index">02</span>
+          <h3>Ignorance Debt Ledger</h3>
+          <p>A self-audit tool for finding the knowledge gaps that quietly tax your biggest decisions.</p>
+          <ul class="project-tags" aria-label="Tags">
+            <li class="tag">Tool</li>
+            <li class="tag">Knowledge</li>
+          </ul>
+          <span class="project-link">
+            Coming soon
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false">
+              <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      </li>
+      <li class="project">
+        <a class="project-card" href="https://hectormurlopez.substack.com" target="_blank" rel="noopener">
+          <span class="project-index">03</span>
+          <h3>Field Notes</h3>
+          <p>Selected experiments, frameworks, and lessons from building in public — published weekly.</p>
+          <ul class="project-tags" aria-label="Tags">
+            <li class="tag">Writing</li>
+            <li class="tag">Experiments</li>
+          </ul>
+          <span class="project-link">
+            Read on Substack
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false">
+              <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- WRITING -->
+  <section class="section writing-section" id="writing" aria-labelledby="writing-title">
+    <span class="section-label">Latest Essays</span>
+    <h2 class="section-title" id="writing-title">Writing</h2>
+    <p class="writing-intro">Essays on growth, self-discovery, and building a life worth living. The latest from the newsletter, synced automatically.</p>
+    <ul class="essays" hidden></ul>
+    <div class="subscribe-box">
+      <div>
+        <h3>Get the newsletter</h3>
+        <p>One honest essay a week. No noise, no hacks. Just the work.</p>
+      </div>
+      <div>
+        <iframe
+          src="https://hectormurlopez.substack.com/embed?bgcolor=f4efe4"
+          class="substack-embed"
+          height="150"
+          frameborder="0"
+          scrolling="no"
+          title="Subscribe to the newsletter">
+        </iframe>
+        <a href="https://hectormurlopez.substack.com" class="substack-fallback" target="_blank" rel="noopener" aria-label="Read on Substack (opens in new tab)">
+          Read on Substack &rarr;
+        </a>
+      </div>
     </div>
-    <div>
-      <iframe
-        src="https://hectormurlopez.substack.com/embed?bgcolor=f4efe4"
-        class="substack-embed"
-        height="150"
-        frameborder="0"
-        scrolling="no"
-        title="Subscribe to the newsletter">
-      </iframe>
-      <a href="https://hectormurlopez.substack.com" class="substack-fallback" target="_blank" rel="noopener" aria-label="Read on Substack (opens in new tab)">
-        Read on Substack &rarr;
-      </a>
-    </div>
-  </div>
+  </section>
 
   <div class="rule"></div>
 
   <!-- CONTACT -->
-  <div class="contact-section" id="contact">
+  <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+    <svg class="contact-sun" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <circle class="drawable" cx="50" cy="50" r="20" fill="none" stroke="#d94f2b" stroke-width="2.5"/>
+      <g class="sun-rays" fill="none" stroke="#d94f2b" stroke-width="2.5" stroke-linecap="round">
+        <path class="drawable" d="M50 14 V4"/>
+        <path class="drawable" d="M50 86 V96"/>
+        <path class="drawable" d="M14 50 H4"/>
+        <path class="drawable" d="M86 50 H96"/>
+        <path class="drawable" d="M25 25 L18 18"/>
+        <path class="drawable" d="M75 25 L82 18"/>
+        <path class="drawable" d="M25 75 L18 82"/>
+        <path class="drawable" d="M75 75 L82 82"/>
+      </g>
+    </svg>
     <span class="section-label">Get in touch</span>
-    <h2>Contact</h2>
+    <h2 class="section-title" id="contact-title">Contact</h2>
     <div class="contact-links">
       <a href="https://www.linkedin.com/in/hector-mur-lopez/" class="contact-link" target="_blank" rel="noopener">
         <span class="contact-label">LinkedIn</span>
@@ -600,7 +313,7 @@
         <span class="contact-handle">@hectormurlopez</span>
       </a>
     </div>
-  </div>
+  </section>
 
   </main>
 
@@ -609,15 +322,8 @@
     <a href="https://www.linkedin.com/in/hector-mur-lopez/" target="_blank" rel="noopener">LinkedIn</a>
   </footer>
 
-  <script>
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.pillar, .statement p, .about-section h2').forEach(el => observer.observe(el));
-  </script>
-
-  <!-- GoatCounter analytics — replace YOUR_CODE with your goatcounter.com site code -->
-  <script data-goatcounter="https://hmurlopez.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <!-- GoatCounter analytics (privacy-friendly) -->
+  <script data-goatcounter="https://hmurlopez.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 
 </body>
 </html>
