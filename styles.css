@@ -3,10 +3,13 @@
    Palette: Miró-inspired editorial
    ========================================================================== */
 
+/* Familjen Grotesk (SIL OFL, see /fonts/LICENSE) — warm rounded grotesque
+   in the spirit of the original Coolvetica branding. The previously
+   committed coolvetica.woff/.woff2 were corrupt (HTML pages, never loaded). */
 @font-face {
-  font-family: 'Coolvetica';
-  src: url('/fonts/coolvetica.woff2') format('woff2'),
-       url('/fonts/coolvetica.woff') format('woff');
+  font-family: 'Familjen Grotesk';
+  src: url('/fonts/familjen-grotesk-latin-400-normal.woff2') format('woff2'),
+       url('/fonts/familjen-grotesk-latin-400-normal.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -23,10 +26,10 @@
   --mid:    #4e5a6a;   /* blue-toned mid */
   --light:  #9aa5b4;   /* muted blue-gray */
   --line:   #ddd5c6;   /* warm divider */
-  --display: 'Coolvetica', 'Helvetica Neue', sans-serif;
+  --display: 'Familjen Grotesk', 'Helvetica Neue', sans-serif;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -217,7 +220,7 @@ nav {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .shape { position: absolute; pointer-events: none; }
@@ -226,7 +229,7 @@ nav {
 .shape-orbit    { top: 52%;  right: 14%;  width: clamp(70px, 9vw, 130px);   height: auto; }
 .shape-star     { top: 10%;  left: 46%;   width: clamp(36px, 5vw, 64px);    height: auto; }
 .shape-crescent { bottom: 14%; right: 30%; width: clamp(40px, 6vw, 76px);   height: auto; }
-.shape-blob     { bottom: 20%; left: -3%;  width: clamp(80px, 11vw, 150px); height: auto; }
+.shape-blob     { bottom: 8%; left: -3%;  width: clamp(80px, 11vw, 150px); height: auto; }
 .shape-dot      { top: 34%;  right: 26%;  width: 14px; height: 14px; }
 .shape-squiggle { top: 70%;  left: 34%;   width: clamp(70px, 10vw, 140px);  height: auto; }
 
@@ -263,6 +266,9 @@ nav {
   padding: 6rem 2.5rem;
   position: relative;
 }
+
+/* Anchored sections stop below the fixed nav */
+.section, .statement { scroll-margin-top: 4.2rem; }
 
 .section-title {
   font-family: var(--display);
@@ -819,14 +825,18 @@ footer a:hover { color: var(--ink); }
 }
 
 @media (max-width: 640px) {
-  nav { padding: 1.2rem 1.5rem; }
-  .nav-links { gap: 0.9rem; }
-  .nav-links a { font-size: 0.55rem; letter-spacing: 0.1em; }
+  nav { padding: 1.1rem 1rem; }
+  .nav-name { font-size: 0.85rem; }
+  .nav-progress { display: none; }
+  .nav-progress.active { display: none; }
+  .nav-links { gap: 0.7rem; }
+  .nav-links a { font-size: 0.52rem; letter-spacing: 0.08em; }
   /* Keep the nav on one line on small screens; Principles stays reachable by scroll */
   .nav-links .nav-optional { display: none; }
 
   .section { padding: 5rem 1.5rem; }
   .hero { padding: 8rem 1.5rem 4rem; }
+  .hero h1 { font-size: clamp(2.7rem, 9vw, 8rem); }
 
   /* Quieter hero constellation on small screens */
   .shape-orbit, .shape-squiggle, .shape-dot { display: none; }
