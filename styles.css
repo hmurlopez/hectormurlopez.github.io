@@ -292,8 +292,9 @@ nav {
 
 .hero h1 .dim { color: var(--light); }
 
-/* JS word-splitting wraps each word for staggered reveals */
+/* JS text-splitting wraps words (.w) and characters (.c) for reveals */
 .hero h1 .w { display: inline-block; }
+.hero h1 .c { display: inline-block; }
 
 .hero-body {
   display: flex;
@@ -342,11 +343,18 @@ nav {
 
 .shape { position: absolute; pointer-events: none; }
 
+/* Inner geometry animates independently of the outer svg (drift/orbit/
+   breathing vs. cursor parallax) — center transforms on the shape itself */
+.shape circle, .shape path, .shape g {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 .shape-sun      { top: 16%;  right: 4%;   width: clamp(90px, 12vw, 170px);  height: auto; }
 .shape-orbit    { top: 52%;  right: 14%;  width: clamp(70px, 9vw, 130px);   height: auto; }
 .shape-star     { top: 10%;  left: 46%;   width: clamp(36px, 5vw, 64px);    height: auto; }
 .shape-crescent { bottom: 14%; right: 30%; width: clamp(40px, 6vw, 76px);   height: auto; }
-.shape-blob     { bottom: 8%; left: -3%;  width: clamp(80px, 11vw, 150px); height: auto; }
+.shape-blob     { bottom: -7%; left: -4%;  width: clamp(80px, 11vw, 150px); height: auto; }
 .shape-dot      { top: 34%;  right: 26%;  width: 14px; height: 14px; }
 .shape-squiggle { top: 70%;  left: 34%;   width: clamp(70px, 10vw, 140px);  height: auto; }
 
@@ -485,65 +493,6 @@ nav {
   font-size: 0.76rem;
   line-height: 1.85;
   color: var(--mid);
-}
-
-/* ==========================================================================
-   PRINCIPLES
-   ========================================================================== */
-
-.principles-section { position: relative; }
-
-.principles {
-  list-style: none;
-  position: relative;
-  padding-left: 0;
-}
-
-/* Vertical ink line drawn down the section as you scroll (bold mode) */
-.principles-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  pointer-events: none;
-}
-
-.principle {
-  display: grid;
-  grid-template-columns: 8rem 1fr;
-  gap: 2.5rem;
-  align-items: baseline;
-  padding: 2.8rem 0;
-  border-top: 1px solid var(--line);
-}
-
-.principle:first-child { border-top: none; }
-
-.principle-index {
-  font-family: var(--display);
-  font-size: 2.6rem;
-  line-height: 1;
-  color: var(--accent);
-  display: inline-block;
-}
-
-.principle:nth-child(even) .principle-index { color: var(--blue); }
-
-.principle h3 {
-  font-family: var(--display);
-  font-size: clamp(1.6rem, 3.4vw, 2.6rem);
-  font-weight: normal;
-  line-height: 1.05;
-  margin-bottom: 0.7rem;
-}
-
-.principle p {
-  font-size: 0.8rem;
-  line-height: 1.9;
-  color: var(--mid);
-  max-width: 58ch;
 }
 
 /* ==========================================================================
@@ -948,8 +897,6 @@ footer a:hover { color: var(--ink); }
   .nav-progress.active { display: none; }
   .nav-links { gap: 0.7rem; }
   .nav-links a { font-size: 0.52rem; letter-spacing: 0.08em; }
-  /* Keep the nav on one line on small screens; Principles stays reachable by scroll */
-  .nav-links .nav-optional { display: none; }
 
   .section { padding: 5rem 1.5rem; }
   .hero { padding: 8rem 1.5rem 4rem; }
@@ -965,13 +912,6 @@ footer a:hover { color: var(--ink); }
   .pillar:last-child { border-bottom: none; }
 
   .about-body { grid-template-columns: 1fr; gap: 2.5rem; }
-
-  .principle {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
-    padding: 2.2rem 0;
-  }
-  .principle-index { font-size: 2rem; }
 
   .projects { grid-template-columns: 1fr; }
   .project { border-right: none; border-bottom: 1px solid var(--line); }

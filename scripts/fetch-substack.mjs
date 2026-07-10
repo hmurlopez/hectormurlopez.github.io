@@ -18,10 +18,10 @@ const OUT_FILE = new URL('../posts.json', import.meta.url);
 const MAX_POSTS = 5;
 const EXCERPT_LENGTH = 200;
 
-// Substack sits behind Cloudflare, which 403s default programmatic
-// user-agents from cloud runners — identify explicitly.
+// Substack sits behind Cloudflare, which tends to 403 non-browser
+// user-agents coming from cloud-runner IPs — send a browser UA.
 const USER_AGENT =
-  'Mozilla/5.0 (compatible; hectormurlopez.com feed sync; +https://hectormurlopez.com)';
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
 
 function fail(message) {
   console.error(`fetch-substack: ${message}`);

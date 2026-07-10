@@ -16,6 +16,7 @@
 import {
   animate,
   stagger,
+  createAnimatable,
   createTimeline,
   createScope,
   onScroll,
@@ -85,6 +86,24 @@ function splitWords(el) {
   };
   walk(el);
   return words;
+}
+
+// Wrap each character in a span.c (inside the span.w word wrappers so
+// words still wrap as units). Used for the hero headline cascade.
+function splitChars(el) {
+  const chars = [];
+  splitWords(el).forEach((word) => {
+    const text = word.textContent;
+    word.textContent = '';
+    [...text].forEach((ch) => {
+      const s = document.createElement('span');
+      s.className = 'c';
+      s.textContent = ch;
+      word.appendChild(s);
+      chars.push(s);
+    });
+  });
+  return chars;
 }
 
 // Scroll-triggered rise-and-fade for a set of elements.
@@ -165,64 +184,164 @@ function setupNavProgress() {
 }
 
 function setupHero(P) {
+  if (P.drift) setupHeroBold(P);
+  else setupHeroCalm(P);
+}
+
+// Calm mode: quiet fades, two static shapes (CSS hides the rest).
+function setupHeroCalm(P) {
+  const tl = createTimeline({ defaults: { ease: 'out(2)' } });
+  const shapes = utils.$('.hero-art .shape');
+  if (shapes.length) {
+    utils.set(shapes, { opacity: 0 });
+    tl.add(shapes, { opacity: [0, 1], delay: stagger(90), duration: 900 });
+  }
+  const tag = utils.$('.hero-tag');
+  utils.set(tag, { opacity: 0 });
+  tl.add(tag, { opacity: [0, 1], translateY: ['0.8rem', 0], duration: 500 }, '-=650');
+  const h1 = document.querySelector('.hero h1');
+  if (h1) {
+    utils.set(h1, { opacity: 0 });
+    tl.add(h1, { opacity: [0, 1], translateY: ['1rem', 0], duration: 700 }, '-=350');
+  }
+  const body = utils.$('.hero-body');
+  utils.set(body, { opacity: 0 });
+  tl.add(body, { opacity: [0, 1], translateY: ['1rem', 0], duration: 600 }, '-=400');
+}
+
+// Bold mode: shapes fly in from scattered positions with elastic physics,
+// the headline lands letter by letter, then the whole composition comes
+// alive — cursor parallax, an orbiting dot, a breathing sun, a squiggle
+// that keeps redrawing itself, and a magnetic CTA.
+function setupHeroBold(P) {
   const shapes = utils.$('.hero-art .shape');
   const tag = utils.$('.hero-tag');
   const h1 = document.querySelector('.hero h1');
   const body = utils.$('.hero-body');
 
-  const tl = createTimeline({ defaults: { ease: 'out(3)' } });
+  shapes.forEach((s) => {
+    utils.set(s, {
+      opacity: 0,
+      translateX: utils.random(-420, 420),
+      translateY: utils.random(-240, 240),
+      rotate: utils.random(-140, 140),
+      scale: 0.2,
+    });
+  });
+  utils.set(tag, { opacity: 0 });
+  const chars = h1 ? splitChars(h1) : [];
+  utils.set(chars, {
+    opacity: 0,
+    translateY: '0.9em',
+    rotate: () => utils.random(-24, 24),
+  });
+  utils.set(body, { opacity: 0, translateY: '1.2rem' });
 
+  const tl = createTimeline();
   if (shapes.length) {
-    utils.set(shapes, { opacity: 0, scale: P.drift ? 0 : 1 });
     tl.add(shapes, {
-      opacity: [0, 1],
-      ...(P.drift ? { scale: [0, 1], rotate: [-14, 0] } : {}),
+      opacity: { to: 1, duration: 450, ease: 'out(2)' },
+      translateX: 0,
+      translateY: 0,
+      rotate: 0,
+      scale: 1,
+      duration: 1500,
+      ease: 'outElastic(1, .65)',
       delay: stagger(90),
-      duration: 900,
-      ease: P.drift ? 'outBack' : 'out(2)',
     });
   }
-
-  utils.set(tag, { opacity: 0 });
-  tl.add(tag, { opacity: [0, 1], translateY: ['0.8rem', 0], duration: 500 }, '-=650');
-
-  if (P.splitWords && h1) {
-    const words = splitWords(h1);
-    utils.set(words, { opacity: 0 });
-    tl.add(words, {
-      opacity: [0, 1],
-      translateY: ['0.6em', 0],
-      delay: stagger(45),
-      duration: 700,
-    }, '-=350');
-  } else if (h1) {
-    utils.set(h1, { opacity: 0 });
-    tl.add(h1, { opacity: [0, 1], translateY: ['1rem', 0], duration: 700 }, '-=350');
+  tl.add(tag, { opacity: [0, 1], translateY: ['0.8rem', 0], duration: 500, ease: 'out(3)' }, '-=1350');
+  if (chars.length) {
+    tl.add(chars, {
+      opacity: { to: 1, duration: 260, ease: 'out(2)' },
+      translateY: '0em',
+      rotate: 0,
+      duration: 800,
+      ease: 'outBack',
+      delay: stagger(16),
+    }, '-=1100');
   }
-
-  utils.set(body, { opacity: 0 });
-  tl.add(body, { opacity: [0, 1], translateY: ['1rem', 0], duration: 600 }, '-=400');
-
-  // CTA arrow draws itself once the hero has settled.
+  tl.add(body, { opacity: [0, 1], translateY: ['1.2rem', '0rem'], duration: 600, ease: 'out(3)' }, '-=450');
   if (P.draw) {
     const arrow = svg.createDrawable('.hero-cta .drawable');
     if (arrow.length) {
-      tl.add(arrow, { draw: ['0 0', '0 1'], duration: 700, ease: 'inOutQuad' }, '-=300');
+      tl.add(arrow, { draw: ['0 0', '0 1'], duration: 700, ease: 'inOutQuad' }, '-=350');
     }
   }
 
-  // Ambient drift: each shape floats on its own randomized rhythm.
-  if (P.drift) {
-    shapes.forEach((shape) => {
-      animate(shape, {
-        translateY: utils.random(8, 18),
-        duration: utils.random(4000, 9000),
-        delay: utils.random(0, 1200),
-        ease: 'inOutSine',
-        loop: true,
-        alternate: true,
-      });
+  tl.then(() => startHeroAmbient(shapes));
+}
+
+function startHeroAmbient(shapes) {
+  // Drift lives on each shape's inner geometry so it never fights the
+  // cursor parallax, which owns the outer <svg> transforms.
+  shapes.forEach((shape) => {
+    const inner = shape.firstElementChild;
+    if (!inner) return;
+    animate(inner, {
+      translateY: utils.random(6, 14),
+      duration: utils.random(3200, 7000),
+      delay: utils.random(0, 1000),
+      ease: 'inOutSine',
+      loop: true,
+      alternate: true,
     });
+  });
+
+  // A red dot rides the blue orbit circle.
+  const orbitGroup = document.querySelector('.shape-orbit .orbit-group');
+  if (orbitGroup) {
+    animate(orbitGroup, { rotate: 360, duration: 14000, ease: 'linear', loop: true });
+  }
+
+  // The sun breathes.
+  const sunDisc = document.querySelector('.shape-sun circle');
+  if (sunDisc) {
+    animate(sunDisc, { scale: 1.06, duration: 3800, ease: 'inOutSine', loop: true, alternate: true });
+  }
+
+  // The squiggle keeps redrawing itself.
+  const squiggle = svg.createDrawable('.shape-squiggle .drawable');
+  if (squiggle.length) {
+    animate(squiggle, {
+      draw: [{ to: '0 1' }, { to: '1 1' }],
+      duration: 4200,
+      ease: 'inOutQuad',
+      loop: true,
+      loopDelay: 1400,
+    });
+  }
+
+  // Cursor parallax: every shape follows the pointer at its own depth.
+  if (matchMedia('(hover: hover)').matches) {
+    const depths = [26, 44, 36, 52, 18, 60, 32];
+    const followers = shapes.map((s) =>
+      createAnimatable(s, { translateX: 450, translateY: 450, ease: 'out(3)' })
+    );
+    window.addEventListener('mousemove', (e) => {
+      const nx = e.clientX / window.innerWidth - 0.5;
+      const ny = e.clientY / window.innerHeight - 0.5;
+      followers.forEach((f, i) => {
+        const d = depths[i % depths.length];
+        f.translateX(nx * d);
+        f.translateY(ny * d * 0.7);
+      });
+    }, { passive: true });
+
+    // Magnetic CTA: the Explore button leans toward the cursor.
+    const cta = document.querySelector('.hero-cta');
+    if (cta) {
+      const magnet = createAnimatable(cta, { translateX: 350, translateY: 350, ease: 'out(2)' });
+      cta.addEventListener('mousemove', (e) => {
+        const r = cta.getBoundingClientRect();
+        magnet.translateX((e.clientX - r.left - r.width / 2) * 0.3);
+        magnet.translateY((e.clientY - r.top - r.height / 2) * 0.4);
+      });
+      cta.addEventListener('mouseleave', () => {
+        magnet.translateX(0);
+        magnet.translateY(0);
+      });
+    }
   }
 }
 
@@ -267,64 +386,6 @@ function setupPillars(P) {
           onComplete: () => { spinning = false; },
         });
       });
-    });
-  }
-}
-
-function setupPrinciples(P) {
-  const rows = utils.$('.principle');
-  if (!rows.length) return;
-
-  if (MODE === 'bold') {
-    rows.forEach((row, i) => {
-      utils.set(row, { opacity: 0, translateX: i % 2 ? 30 : -30 });
-      animate(row, {
-        opacity: [0, 1],
-        translateX: 0,
-        duration: P.revealDuration,
-        ease: P.ease,
-        autoplay: onScroll({ target: row, enter: 'bottom-=60 top', once: true }),
-      });
-      const index = row.querySelector('.principle-index');
-      if (index) {
-        utils.set(index, { scale: 0.4 });
-        animate(index, {
-          scale: [0.4, 1],
-          duration: 650,
-          ease: 'outBack',
-          autoplay: onScroll({ target: row, enter: 'bottom-=60 top', once: true }),
-        });
-      }
-    });
-  } else {
-    reveal('.principle', P, { trigger: '.principles' });
-  }
-
-  // Ink line drawn down the section, scrubbed to scroll (bold only).
-  if (P.scrub) {
-    const list = document.querySelector('.principles');
-    const ns = 'http://www.w3.org/2000/svg';
-    const lineSvg = document.createElementNS(ns, 'svg');
-    lineSvg.setAttribute('class', 'principles-line');
-    lineSvg.setAttribute('viewBox', '0 0 2 100');
-    lineSvg.setAttribute('preserveAspectRatio', 'none');
-    lineSvg.setAttribute('aria-hidden', 'true');
-    const path = document.createElementNS(ns, 'path');
-    path.setAttribute('d', 'M1 0 V100');
-    path.setAttribute('stroke', '#f9c027');
-    path.setAttribute('stroke-width', '2');
-    path.setAttribute('fill', 'none');
-    lineSvg.appendChild(path);
-    list.appendChild(lineSvg);
-    animate(svg.createDrawable(path), {
-      draw: ['0 0', '0 1'],
-      ease: 'linear',
-      autoplay: onScroll({
-        target: list,
-        enter: 'bottom top',
-        leave: 'top+=200 top',
-        sync: true,
-      }),
     });
   }
 }
@@ -511,7 +572,6 @@ function boot() {
     setupRules(P);
     setupAbout(P);
     setupPillars(P);
-    setupPrinciples(P);
     setupStatement(P);
     setupPortfolio(P);
     setupWriting(P);
@@ -559,7 +619,16 @@ if (!gate || localStorage.getItem(GATE_STORE) === GATE_HASH) {
     const hash = await sha256Hex(input.value.trim());
     if (hash === GATE_HASH) {
       localStorage.setItem(GATE_STORE, hash);
-      openSite();
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        openSite();
+      } else {
+        animate(gate, {
+          opacity: [1, 0],
+          duration: 450,
+          ease: 'out(2)',
+          onComplete: openSite,
+        });
+      }
       window.scrollTo(0, 0);
     } else {
       error.hidden = false;

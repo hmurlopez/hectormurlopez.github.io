@@ -20,6 +20,15 @@ on:
   schedule:
     - cron: '17 6 * * *'   # daily, off-the-hour to avoid cron congestion
   workflow_dispatch:
+  # Also run once whenever the sync itself changes — so a merge that adds
+  # or fixes this pipeline populates posts.json immediately, no manual
+  # dispatch needed. The workflow's own posts.json commit doesn't match
+  # these paths, so this can't loop.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/substack-sync.yml'
+      - 'scripts/fetch-substack.mjs'
 
 permissions:
   contents: write
