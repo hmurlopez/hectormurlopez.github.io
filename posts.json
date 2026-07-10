@@ -1,3 +1,22 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "title": "Life Pressure, Life Force, and the Circle of Experience",
+      "url": "https://hectormurlopez.substack.com/p/life-pressure-life-force-and-the",
+      "date": "2026-06-12",
+      "excerpt": "Problem-solving is important."
+    },
+    {
+      "title": "How I’m Writing Goals Pt.1",
+      "url": "https://hectormurlopez.substack.com/p/how-im-writing-goals-pt1",
+      "date": "2026-02-03",
+      "excerpt": "Now that we are heading into the second month of the year, I want you to take a moment to reflect on what you have accomplished over the past month."
+    },
+    {
+      "title": "Coming soon",
+      "url": "https://hectormurlopez.substack.com/p/coming-soon",
+      "date": "2026-01-17",
+      "excerpt": "This is Hector's Substack."
+    }
+  ]
 }
