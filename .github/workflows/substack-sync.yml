@@ -1,0 +1,49 @@
+# Syncs the latest Substack essays into posts.json, which the Writing
+# section on the homepage renders client-side.
+#
+# Notes:
+# - Scheduled workflows only run from the default branch — the cron does
+#   nothing until this file lands on main. Use "Run workflow" (the
+#   workflow_dispatch button in the Actions tab) to test it after merge.
+# - GitHub disables schedules after 60 days without repository activity
+#   (public repos). GitHub emails a warning; re-enabling is one click in
+#   the Actions tab.
+# - Pushes made with GITHUB_TOKEN don't trigger normal workflows, but the
+#   GitHub Pages build (pages-build-deployment) is expected to still run.
+#   Verify after the first bot commit that the live site picks up the new
+#   posts.json; if not, switch the Pages source to "GitHub Actions" and
+#   add a deploy step here, or push with a fine-grained PAT secret.
+
+name: Sync Substack posts
+
+on:
+  schedule:
+    - cron: '17 6 * * *'   # daily, off-the-hour to avoid cron congestion
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: substack-sync
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch latest posts
+        run: node scripts/fetch-substack.mjs
+
+      - name: Commit and push if changed
+        run: |
+          if ! git diff --quiet -- posts.json; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add posts.json
+            git commit -m "chore: sync latest Substack posts"
+            git push
+          else
+            echo "posts.json unchanged — nothing to commit"
+          fi
