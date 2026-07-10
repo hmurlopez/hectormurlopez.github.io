@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://gc.zgo.at; connect-src 'self' https://hmurlopez.goatcounter.com; img-src 'self' data: https://hmurlopez.goatcounter.com; frame-src https://hectormurlopez.substack.com; style-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'"/>
   <meta name="description" content="Hector Mur Lopez — writer and builder. Essays and frameworks on skills, knowledge, and health: how ordinary people create extraordinary lives."/>
+  <!-- GATE: remove this noindex when the site launches publicly -->
+  <meta name="robots" content="noindex"/>
   <title>Hector Mur Lopez</title>
   <link rel="icon" type="image/svg+xml" href="/icon.svg"/>
   <link rel="preload" href="/fonts/familjen-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
@@ -19,9 +21,45 @@
 </head>
 <body>
 
-  <a class="skip-link" href="#main">Skip to content</a>
+  <!-- GATE: coming-soon screen. To launch the site publicly, delete this
+       whole #gate block and the noindex meta above — main.js boots the
+       full site automatically when no gate is present. -->
+  <div id="gate" class="gate">
+    <div class="gate-art" aria-hidden="true">
+      <svg class="gate-shape gate-sun" viewBox="0 0 100 100" focusable="false">
+        <circle cx="50" cy="50" r="46" fill="#f9c027"/>
+      </svg>
+      <svg class="gate-shape gate-star" viewBox="0 0 100 100" focusable="false">
+        <path d="M50 4 L59 41 L96 50 L59 59 L50 96 L41 59 L4 50 L41 41 Z" fill="#0d1b2a"/>
+      </svg>
+      <svg class="gate-shape gate-dot" viewBox="0 0 14 14" focusable="false">
+        <circle cx="7" cy="7" r="7" fill="#d94f2b"/>
+      </svg>
+    </div>
+    <div class="gate-content">
+      <p class="gate-tag">Hector Mur Lopez</p>
+      <h1 class="gate-title">Something new<br>is coming.</h1>
+      <p class="gate-sub">A redesigned home for essays and frameworks on skills, knowledge, and health. Meanwhile, the newsletter is very much alive.</p>
+      <a class="hero-cta" href="https://hectormurlopez.substack.com" target="_blank" rel="noopener">
+        Read on Substack
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false">
+          <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <form class="gate-form" autocomplete="off">
+        <label class="gate-label" for="gate-key">Site key</label>
+        <div class="gate-row">
+          <input class="gate-input" id="gate-key" type="password" name="key" placeholder="Enter key"/>
+          <button class="gate-btn" type="submit">Unlock</button>
+        </div>
+        <p class="gate-error" hidden>That's not it — check the key and try again.</p>
+      </form>
+    </div>
+  </div>
 
-  <nav>
+  <a class="skip-link" href="#main" hidden>Skip to content</a>
+
+  <nav hidden>
     <div class="nav-left">
       <svg class="nav-progress" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
         <circle cx="16" cy="16" r="13" fill="none" stroke="#ddd5c6" stroke-width="3.5"/>
@@ -38,7 +76,7 @@
     </ul>
   </nav>
 
-  <main id="main">
+  <main id="main" hidden>
 
   <!-- HERO -->
   <header class="hero">
@@ -317,7 +355,7 @@
 
   </main>
 
-  <footer>
+  <footer hidden>
     <span>&copy; 2026 Hector Mur Lopez</span>
     <a href="https://www.linkedin.com/in/hector-mur-lopez/" target="_blank" rel="noopener">LinkedIn</a>
   </footer>

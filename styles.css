@@ -67,6 +67,121 @@ body {
   overflow-x: hidden;
 }
 
+/* Belt-and-braces: some elements set their own display, which would
+   otherwise defeat the hidden attribute used by the coming-soon gate */
+[hidden] { display: none !important; }
+
+/* ==========================================================================
+   COMING-SOON GATE (temporary — removed at launch)
+   ========================================================================== */
+
+.gate {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.gate-content { position: relative; z-index: 1; }
+
+.gate-art { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+.gate-shape { position: absolute; }
+.gate-sun  { top: 12%; right: 6%;  width: clamp(90px, 12vw, 160px); height: auto; }
+.gate-star { bottom: 18%; right: 24%; width: clamp(34px, 5vw, 60px); height: auto; }
+.gate-dot  { top: 30%; left: 55%; width: 12px; height: 12px; }
+
+.gate-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--light);
+  margin-bottom: 2rem;
+}
+
+.gate-tag::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.gate-title {
+  font-family: var(--display);
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: normal;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin-bottom: 2rem;
+}
+
+.gate-sub {
+  font-size: 0.8rem;
+  color: var(--mid);
+  line-height: 1.9;
+  max-width: 44ch;
+  margin-bottom: 2.2rem;
+}
+
+.gate-form { margin-top: 3.5rem; max-width: 320px; }
+
+.gate-label {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--light);
+  margin-bottom: 0.7rem;
+}
+
+.gate-row { display: flex; }
+
+.gate-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  font-family: inherit;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-right: none;
+}
+
+.gate-input::placeholder { color: var(--light); }
+
+.gate-btn {
+  padding: 0.75rem 1.4rem;
+  font-size: 0.62rem;
+  font-family: inherit;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+
+.gate-btn:hover { background: var(--ink); color: var(--bg); }
+
+.gate-error {
+  margin-top: 0.8rem;
+  font-size: 0.7rem;
+  color: var(--red);
+}
+
 /* ==========================================================================
    NAV
    ========================================================================== */
