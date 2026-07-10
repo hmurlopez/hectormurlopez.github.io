@@ -18,10 +18,26 @@ const OUT_FILE = new URL('../posts.json', import.meta.url);
 const MAX_POSTS = 5;
 const EXCERPT_LENGTH = 200;
 
-// Substack sits behind Cloudflare, which tends to 403 non-browser
-// user-agents coming from cloud-runner IPs — send a browser UA.
-const USER_AGENT =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+// Substack sits behind Cloudflare, which 403s GitHub-runner IPs even with
+// a browser User-Agent (it fingerprints the TLS stack, not just headers).
+// So we try the feed directly first, then fall back to a public
+// read-through proxy. The feed is public content, so proxying it leaks
+// nothing — and the script still fails loudly if every source fails.
+const BROWSER_HEADERS = {
+  'User-Agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  Accept: 'application/rss+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.5',
+  'Accept-Language': 'en-US,en;q=0.9',
+};
+
+const SOURCES = [
+  { name: 'substack-direct', url: FEED_URL, headers: BROWSER_HEADERS },
+  {
+    name: 'allorigins-proxy',
+    url: `https://api.allorigins.win/raw?url=${encodeURIComponent(FEED_URL)}`,
+    headers: {},
+  },
+];
 
 function fail(message) {
   console.error(`fetch-substack: ${message}`);
@@ -65,13 +81,27 @@ function tagContent(block, tag) {
   return m ? m[1] : '';
 }
 
-const res = await fetch(FEED_URL, {
-  headers: { 'User-Agent': USER_AGENT, Accept: 'application/rss+xml, application/xml, text/xml' },
-}).catch((err) => fail(`network error: ${err.message}`));
-
-if (!res.ok) fail(`feed returned HTTP ${res.status}`);
-
-const xml = await res.text();
+let xml = null;
+for (const source of SOURCES) {
+  try {
+    const res = await fetch(source.url, { headers: source.headers });
+    if (!res.ok) {
+      console.error(`fetch-substack: ${source.name} returned HTTP ${res.status}`);
+      continue;
+    }
+    const text = await res.text();
+    if (!text.includes('<item>')) {
+      console.error(`fetch-substack: ${source.name} response has no feed items`);
+      continue;
+    }
+    console.log(`fetch-substack: fetched feed via ${source.name}`);
+    xml = text;
+    break;
+  } catch (err) {
+    console.error(`fetch-substack: ${source.name} failed: ${err.message}`);
+  }
+}
+if (xml === null) fail('all feed sources failed');
 const itemBlocks = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => m[1]);
 
 if (itemBlocks.length === 0) fail('no <item> entries found in feed');
