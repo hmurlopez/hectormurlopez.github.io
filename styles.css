@@ -133,6 +133,8 @@ body {
   margin-bottom: 2.2rem;
 }
 
+.gate-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+
 .gate-form { margin-top: 3.5rem; max-width: 320px; }
 
 .gate-label {
