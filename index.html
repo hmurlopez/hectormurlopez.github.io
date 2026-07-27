@@ -201,61 +201,65 @@
   <section class="section portfolio-section" id="portfolio" aria-labelledby="portfolio-title">
     <span class="section-label">Selected Work</span>
     <h2 class="section-title" id="portfolio-title">Portfolio</h2>
-    <!-- EDIT: projects — swap these placeholder cards with real projects.
-         Each card needs: index, title, one-2 sentence description, 2-3 tags, and a link (href). -->
+    <!-- Everything between these markers is generated from projects.json.
+         Don't hand-edit it — edit projects.json and run
+         `node scripts/build-projects.mjs`, or your changes get overwritten
+         on the next deploy. -->
+    <!-- projects:start -->
     <ul class="projects">
       <li class="project">
-        <a class="project-card" href="#portfolio">
+        <a class="project-card" href="/projects/project-one">
           <span class="project-index">01</span>
-          <h3>Positive Spiral OS</h3>
-          <p>A practical operating system for deliberate growth — goals, reviews, and habits in one honest loop.</p>
+          <h3>PLACEHOLDER Project One</h3>
+          <p>PLACEHOLDER — two or three sentences a stranger could read and understand what you made and why anyone would want it. This is the card text on the homepage, so it carries the whole project until someone clicks.</p>
+          <ul class="project-tags" aria-label="Tags">
+            <li class="tag">Hardware</li>
+            <li class="tag">3D Printing</li>
+          </ul>
+          <span class="project-link">
+            Prototype
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false">
+            <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          </span>
+        </a>
+      </li>
+      <li class="project">
+        <a class="project-card" href="/projects/project-two">
+          <span class="project-index">02</span>
+          <h3>PLACEHOLDER Project Two</h3>
+          <p>PLACEHOLDER — a second project to show the range of the layout. Delete this whole entry if you only have one project ready; the grid handles any number.</p>
+          <ul class="project-tags" aria-label="Tags">
+            <li class="tag">Software</li>
+            <li class="tag">Tooling</li>
+          </ul>
+          <span class="project-link">
+            In progress
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false">
+            <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          </span>
+        </a>
+      </li>
+      <li class="project">
+        <a class="project-card" href="/projects/project-three">
+          <span class="project-index">03</span>
+          <h3>PLACEHOLDER Project Three</h3>
+          <p>PLACEHOLDER — a third entry so the homepage grid is full. Not every project has to be a physical object; a framework or a body of writing works here too.</p>
           <ul class="project-tags" aria-label="Tags">
             <li class="tag">Framework</li>
-            <li class="tag">Systems</li>
-          </ul>
-          <span class="project-link">
-            Coming soon
-            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false">
-              <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        </a>
-      </li>
-      <li class="project">
-        <a class="project-card" href="#portfolio">
-          <span class="project-index">02</span>
-          <h3>Ignorance Debt Ledger</h3>
-          <p>A self-audit tool for finding the knowledge gaps that quietly tax your biggest decisions.</p>
-          <ul class="project-tags" aria-label="Tags">
-            <li class="tag">Tool</li>
-            <li class="tag">Knowledge</li>
-          </ul>
-          <span class="project-link">
-            Coming soon
-            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false">
-              <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        </a>
-      </li>
-      <li class="project">
-        <a class="project-card" href="https://hectormurlopez.substack.com" target="_blank" rel="noopener">
-          <span class="project-index">03</span>
-          <h3>Field Notes</h3>
-          <p>Selected experiments, frameworks, and lessons from building in public — published weekly.</p>
-          <ul class="project-tags" aria-label="Tags">
             <li class="tag">Writing</li>
-            <li class="tag">Experiments</li>
           </ul>
           <span class="project-link">
-            Read on Substack
+            Exploring
             <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false">
-              <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <path d="M1 5h12M8 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           </span>
         </a>
       </li>
     </ul>
+    <!-- projects:end -->
   </section>
 
   <div class="rule"></div>

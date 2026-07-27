@@ -24,6 +24,8 @@ import {
   utils,
 } from '/vendor/animejs/anime.esm.min.js';
 
+import { mountGate } from '/js/gate.js';
+
 const MODE = document.documentElement.dataset.motion === 'calm' ? 'calm' : 'bold';
 
 const PARAMS = {
@@ -583,63 +585,13 @@ function boot() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Coming-soon gate (temporary — delete the #gate block in index.html  */
-/* at launch and this section becomes a no-op)                         */
+/* Coming-soon gate — see js/gate.js                                   */
 /* ------------------------------------------------------------------ */
 
-// SHA-256 of the site key. To change the key:
-//   node -e "crypto.subtle.digest('SHA-256', new TextEncoder().encode('NEW-KEY')).then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('')))"
-// Note: this is a curtain, not a vault — the source is public, so it keeps
-// out casual visitors, not determined ones.
-const GATE_HASH = '4497efb7c8acf0e17afab99d2db2d5facae578ce7382493ab0cf0c2f809110e4';
-const GATE_STORE = 'hml-site-key';
-
-async function sha256Hex(text) {
-  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
-}
-
-function openSite() {
-  document.getElementById('gate')?.remove();
+// mountGate boots the site immediately when no #gate block is present,
+// so deleting that block from index.html is all it takes to launch.
+mountGate(() => {
   document.querySelectorAll('nav[hidden], main[hidden], footer[hidden], .skip-link[hidden]')
     .forEach((el) => el.removeAttribute('hidden'));
   boot();
-}
-
-const gate = document.getElementById('gate');
-
-if (!gate || localStorage.getItem(GATE_STORE) === GATE_HASH) {
-  openSite();
-} else {
-  const form = gate.querySelector('.gate-form');
-  const input = gate.querySelector('.gate-input');
-  const error = gate.querySelector('.gate-error');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const hash = await sha256Hex(input.value.trim());
-    if (hash === GATE_HASH) {
-      localStorage.setItem(GATE_STORE, hash);
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        openSite();
-      } else {
-        animate(gate, {
-          opacity: [1, 0],
-          duration: 450,
-          ease: 'out(2)',
-          onComplete: openSite,
-        });
-      }
-      window.scrollTo(0, 0);
-    } else {
-      error.hidden = false;
-      input.select();
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        animate(input, {
-          translateX: [{ to: -8 }, { to: 8 }, { to: -5 }, { to: 5 }, { to: 0 }],
-          duration: 400,
-          ease: 'inOutQuad',
-        });
-      }
-    }
-  });
-}
+});

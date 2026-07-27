@@ -1,0 +1,199 @@
+{
+  "_readme": [
+    "This file is the single source of truth for the portfolio.",
+    "Edit it, then run: node scripts/build-projects.mjs",
+    "That regenerates the homepage grid, /projects, every /projects/<slug> page,",
+    "and sitemap.xml. Vercel runs it automatically on every deploy.",
+    "",
+    "EVERY string below starting with 'PLACEHOLDER' is filler. Replace it with",
+    "your own words before launching. Nothing here is a claim about you.",
+    "",
+    "Field guide:",
+    "  slug      URL segment. Lowercase, hyphens only. Changing it changes the URL.",
+    "  status    Free text badge: Shipped / In progress / Prototype / Shelved / Exploring",
+    "  featured  true = appears on the homepage grid. Homepage shows the first 3.",
+    "  problem   Array of paragraphs. What was actually wrong before this existed.",
+    "  process   The prototyping log. This is the section that matters most --",
+    "            see the notes on 'verdict' below.",
+    "  verdict   'worked' | 'partial' | 'failed'. Colors the timeline marker.",
+    "            Use 'failed' honestly. A process log where every step succeeded",
+    "            reads as marketing; one with real dead ends reads as engineering.",
+    "  image     Set to null when you have no photo. The page renders fine without",
+    "            it. Drop files in /media and reference them as /media/name.jpg",
+    "  specs     Optional key/value table. Delete the array if it doesn't apply.",
+    "  metrics   Optional big-number row. Only use numbers you can actually stand",
+    "            behind. Delete the array rather than inventing figures."
+  ],
+
+  "config": {
+    "gated": true,
+    "siteUrl": "https://hectormurlopez.com"
+  },
+
+  "projects": [
+    {
+      "slug": "project-one",
+      "title": "PLACEHOLDER Project One",
+      "tagline": "PLACEHOLDER — one line on what this is, in plain language.",
+      "status": "Prototype",
+      "year": "2026",
+      "role": "PLACEHOLDER — Design, prototyping, manufacturing",
+      "featured": true,
+      "tags": ["Hardware", "3D Printing"],
+      "summary": "PLACEHOLDER — two or three sentences a stranger could read and understand what you made and why anyone would want it. This is the card text on the homepage, so it carries the whole project until someone clicks.",
+
+      "problem": [
+        "PLACEHOLDER — describe the situation before this thing existed. Be concrete and specific. Who was struggling, with what, how often.",
+        "PLACEHOLDER — why the obvious existing solutions didn't work. This paragraph is what makes the project interesting rather than arbitrary."
+      ],
+
+      "process": [
+        {
+          "phase": "01",
+          "title": "PLACEHOLDER — the first thing you tried",
+          "body": "PLACEHOLDER — what you built, what you assumed, and how you tested it. Write it the way you'd explain it to someone standing next to you.",
+          "outcome": "PLACEHOLDER — what actually happened.",
+          "verdict": "partial",
+          "image": null
+        },
+        {
+          "phase": "02",
+          "title": "PLACEHOLDER — the version that broke",
+          "body": "PLACEHOLDER — this is the entry that earns the whole page. Something failed. Describe the failure precisely: what broke, under what load, after how long.",
+          "outcome": "PLACEHOLDER — what the failure taught you that you couldn't have known up front.",
+          "verdict": "failed",
+          "image": null
+        },
+        {
+          "phase": "03",
+          "title": "PLACEHOLDER — the change that fixed it",
+          "body": "PLACEHOLDER — the specific change, and why it followed from what you learned in the previous step.",
+          "outcome": "PLACEHOLDER — how you verified it was actually fixed and not just fixed-looking.",
+          "verdict": "worked",
+          "image": null
+        }
+      ],
+
+      "specs": [
+        { "label": "Material", "value": "PLACEHOLDER" },
+        { "label": "Iterations", "value": "PLACEHOLDER" },
+        { "label": "Time to first working unit", "value": "PLACEHOLDER" }
+      ],
+
+      "outcome": {
+        "body": [
+          "PLACEHOLDER — where the project stands today, stated plainly. If it's unfinished, say it's unfinished. Honest status ages well; optimistic status has to be walked back."
+        ],
+        "metrics": []
+      },
+
+      "learnings": [
+        "PLACEHOLDER — something you'd do differently, stated as a rule you now follow.",
+        "PLACEHOLDER — something that surprised you.",
+        "PLACEHOLDER — something that transferred to unrelated work."
+      ],
+
+      "gallery": [],
+
+      "links": []
+    },
+
+    {
+      "slug": "project-two",
+      "title": "PLACEHOLDER Project Two",
+      "tagline": "PLACEHOLDER — one line on what this is.",
+      "status": "In progress",
+      "year": "2026",
+      "role": "PLACEHOLDER — Research, build",
+      "featured": true,
+      "tags": ["Software", "Tooling"],
+      "summary": "PLACEHOLDER — a second project to show the range of the layout. Delete this whole entry if you only have one project ready; the grid handles any number.",
+
+      "problem": [
+        "PLACEHOLDER — the problem this addresses."
+      ],
+
+      "process": [
+        {
+          "phase": "01",
+          "title": "PLACEHOLDER — first pass",
+          "body": "PLACEHOLDER — what you built first.",
+          "outcome": "PLACEHOLDER — result.",
+          "verdict": "worked",
+          "image": null
+        },
+        {
+          "phase": "02",
+          "title": "PLACEHOLDER — where it got hard",
+          "body": "PLACEHOLDER — the complication.",
+          "outcome": "PLACEHOLDER — how it resolved, or that it hasn't yet.",
+          "verdict": "partial",
+          "image": null
+        }
+      ],
+
+      "specs": [],
+
+      "outcome": {
+        "body": [
+          "PLACEHOLDER — current state."
+        ],
+        "metrics": []
+      },
+
+      "learnings": [
+        "PLACEHOLDER — one thing learned."
+      ],
+
+      "gallery": [],
+
+      "links": []
+    },
+
+    {
+      "slug": "project-three",
+      "title": "PLACEHOLDER Project Three",
+      "tagline": "PLACEHOLDER — one line on what this is.",
+      "status": "Exploring",
+      "year": "2026",
+      "role": "PLACEHOLDER",
+      "featured": true,
+      "tags": ["Framework", "Writing"],
+      "summary": "PLACEHOLDER — a third entry so the homepage grid is full. Not every project has to be a physical object; a framework or a body of writing works here too.",
+
+      "problem": [
+        "PLACEHOLDER — the problem."
+      ],
+
+      "process": [
+        {
+          "phase": "01",
+          "title": "PLACEHOLDER — starting point",
+          "body": "PLACEHOLDER — what you began with.",
+          "outcome": "PLACEHOLDER — result.",
+          "verdict": "partial",
+          "image": null
+        }
+      ],
+
+      "specs": [],
+
+      "outcome": {
+        "body": [
+          "PLACEHOLDER — current state."
+        ],
+        "metrics": []
+      },
+
+      "learnings": [
+        "PLACEHOLDER — one thing learned."
+      ],
+
+      "gallery": [],
+
+      "links": [
+        { "label": "Read on Substack", "url": "https://hectormurlopez.substack.com" }
+      ]
+    }
+  ]
+}
